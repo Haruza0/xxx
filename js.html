@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/ex1.js"></script>
+</head>
+<body>
+        <h1>Currency</h1>
+        Form Currency <input type="number" name="form_currency" id="fc">
+        <select id="fcc"></select>
+        :To Currency <input type="number" name="to_currency" id="tc">
+        <select id="tcc"></select>
+        <button type="button" onclick="convert()">Exchange</button>
+
+    <script src="/js/ex1.js"></script>
+    <script>
+
+        const fcc = document.getElementById('fcc');
+        const tcc = document.getElementById('tcc');
+
+        currencies = {'USD':0,'THB':0,'CNY':0}
+        
+        for (item of Object.keys(currencies)) {
+            let option = document.createElement('option');
+            option.innerText = item
+            option.value = item
+            fcc.appendChild(option)
+            tcc.appendChild(option.cloneNode(true))
+        }
+        
+        convert = async () => {
+            const amount = document.getElementById('fc').value;
+
+            const toAmount = await convertCurrency(amount, fcc, tcc);
+            document.getElementById('tc').value = toAmount;
+        }
+    </script>
+</body>
+</html>

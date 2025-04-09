@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .filter-bar {
+            background: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .filter-bar button {
+            background: #555;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .filter-bar button:hover {
+            background: #777;
+        }
+        .filter-bar button.active {
+            background: #ff5722;
+        }
+        .content {
+            padding: 20px;
+        }
+        .item {
+            padding: 10px;
+            margin: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterCategory('all')">ทั้งหมด</button>
+        <button class="filter-btn" onclick="filterCategory('electronics')">อิเล็กทรอนิกส์</button>
+        <button class="filter-btn" onclick="filterCategory('clothing')">เสื้อผ้า</button>
+        <input type="text" id="search" placeholder="ค้นหา..." oninput="searchItems()">
+    </div>
+
+    <div class="content" id="item-list">
+        <div class="item" data-category="electronics">📱 โทรศัพท์มือถือ</div>
+        <div class="item" data-category="electronics">💻 แล็ปท็อป</div>
+        <div class="item" data-category="clothing">👕 เสื้อยืด</div>
+        <div class="item" data-category="clothing">👖 กางเกงยีนส์</div>
+    </div>
+
+    <script>
+        function filterCategory(category) {
+            const items = document.querySelectorAll(".item");
+            const buttons = document.querySelectorAll(".filter-btn");
+
+            items.forEach(item => {
+                const itemCategory = item.getAttribute("data-category");
+                if (category === "all" || itemCategory === category) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+
+            buttons.forEach(btn => btn.classList.remove("active"));
+            event.target.classList.add("active");
+        }
+
+        function searchItems() {
+            const searchText = document.getElementById("search").value.toLowerCase();
+            const items = document.querySelectorAll(".item");
+
+            items.forEach(item => {
+                const itemText = item.textContent.toLowerCase();
+                if (itemText.includes(searchText)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
